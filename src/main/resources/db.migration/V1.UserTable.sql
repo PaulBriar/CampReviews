@@ -1,0 +1,7 @@
+CREATE TABLE users (
+    id UUID NOT NULL PRIMARY KEY,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    stateOrProvince VARCHAR(50) NOT NULL
+)
