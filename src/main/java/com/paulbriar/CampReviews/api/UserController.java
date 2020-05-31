@@ -1,20 +1,23 @@
 package com.paulbriar.CampReviews.api;
 
-import com.paulbriar.CampReviews.repository.UserRepository;
+import com.paulbriar.CampReviews.model.User;
+import com.paulbriar.CampReviews.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/users")
-    public String getUsers() {
-        return
+    public List<User> getUsers() {
+        return userService.getAllUsers();
     }
 }

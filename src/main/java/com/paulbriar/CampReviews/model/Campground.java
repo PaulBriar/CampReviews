@@ -1,27 +1,31 @@
 package com.paulbriar.CampReviews.model;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
+import javax.validation.constraints.NotBlank;
+import java.util.UUID;
+
 public class Campground {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String streetAddress;
+    @NotBlank
     private String town;
+    @NotBlank
     private String stateOrProvince;
+    @NotBlank
     private int ratingOutOfFive;
 
-    @OneToMany
-    private Set<Campground> campgrounds = new HashSet<>();
-
-    public Campground(){}
-
-    public Campground(String name, String streetAddress, String town, String stateOrProvince, int ratingOutOfFive) {
+    public Campground(@JsonProperty("id") UUID id,
+                      @JsonProperty("name") String name,
+                      @JsonProperty("streetAddress") String streetAddress,
+                      @JsonProperty("town") String town,
+                      @JsonProperty("stateOrProvince") String stateOrProvince,
+                      @JsonProperty("ratingOutOfFive") int ratingOutOfFive) {
+        this.id = id;
         this.name = name;
         this.streetAddress = streetAddress;
         this.town = town;
@@ -29,12 +33,8 @@ public class Campground {
         this.ratingOutOfFive = ratingOutOfFive;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -77,35 +77,4 @@ public class Campground {
         this.ratingOutOfFive = ratingOutOfFive;
     }
 
-    @Override
-    public String toString() {
-        return "Campground{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", streetAddress='" + streetAddress + '\'' +
-                ", town='" + town + '\'' +
-                ", stateOrProvince='" + stateOrProvince + '\'' +
-                ", ratingOutOfFive=" + ratingOutOfFive +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Campground that = (Campground) o;
-
-        if (ratingOutOfFive != that.ratingOutOfFive) return false;
-        if (!id.equals(that.id)) return false;
-        if (!name.equals(that.name)) return false;
-        if (!streetAddress.equals(that.streetAddress)) return false;
-        if (!town.equals(that.town)) return false;
-        return stateOrProvince.equals(that.stateOrProvince);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
 }
